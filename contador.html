@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contador Regresivo</title>
+    <style>
+        .countdown-container {
+            width: 600px;
+            background-color: #000000;
+            padding: 20px;
+            border-radius: 0px;
+            text-align: center;
+        }
+        .countdown {
+            font-size: 2rem;
+            color: #ffffff;
+            padding: 15px;
+            border-radius: 0px;
+            display: inline-block;
+            width: 100%;
+        }
+        .time-unit {
+            display: inline-block;
+            margin: 0 5px;
+        }
+        .label {
+            display: block;
+            font-size: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="countdown-container">
+        <div class="countdown">
+            <div class="time-unit">
+                <span id="dias">00</span>
+                <div class="label">DÍAS</div>
+            </div>
+            <div class="time-unit">
+                <span id="horas">00</span>
+                <div class="label">HORAS</div>
+            </div>
+            <div class="time-unit">
+                <span id="minutos">00</span>
+                <div class="label">MINUTOS</div>
+            </div>
+            <div class="time-unit">
+                <span id="segundos">00</span>
+                <div class="label">SEGUNDOS</div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function startCountdown(targetDate) {
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                if (distance < 0) {
+                    document.getElementById("dias").innerText = "00";
+                    document.getElementById("horas").innerText = "00";
+                    document.getElementById("minutos").innerText = "00";
+                    document.getElementById("segundos").innerText = "00";
+                    return;
+                }
+
+                const dias = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const horas = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutos = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const segundos = Math.floor((distance % (1000 * 60)) / 1000);
+
+                document.getElementById("dias").innerText = String(dias).padStart(2, '0');
+                document.getElementById("horas").innerText = String(horas).padStart(2, '0');
+                document.getElementById("minutos").innerText = String(minutos).padStart(2, '0');
+                document.getElementById("segundos").innerText = String(segundos).padStart(2, '0');
+            }
+
+            updateCountdown();
+            setInterval(updateCountdown, 1000);
+        }
+
+        const countdownDate = new Date("Nov 4, 2024 23:59:59").getTime();
+        startCountdown(countdownDate);
+    </script>
+</body>
+</html>
